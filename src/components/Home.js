@@ -5,6 +5,8 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 import GenerationFilter from './GenerationFilter';
 import PokemonCardList from './PokemonCardList';
 import PokemonDetail from './PokemonDetail';
+import * as pokemonActions from '../actions/pokemonActions';
+import { bindActionCreators } from 'redux';
 
 class Home extends Component {
 
@@ -13,49 +15,26 @@ class Home extends Component {
 
     this.onItemClick = this.onItemClick.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
-    this.state = {
-      open: false
-    }
-
-    this.pokemonSample = {
-      id: 34,
-      imageUrl: 'http://lorempixel.com/96/96/',
-      name: 'Pikachu',
-      types: ['something', 'sometype'],
-      weight: 69,
-      height: 3,
-      baseExperience: 194,
-      abilities: ['ability-1', 'ability-2'],
-      stats: [
-        'speed: 45',
-        'special defense: 23', 
-        'special attack: 169', 
-        'defense: 30', 
-        'attack: 90', 
-        'hp: 39'
-      ]
-    }
   }
 
   onItemClick(e, data) {
-    this.setState({ open: true });
+    this.props.actions.fetchPokemonDetail(data.pokemonId);
   }
 
   closeModal() {
-    this.setState({ open: false });
+    this.props.actions.clearPokemonDetail();
   }
 
   render() {
     return (
       <div>
-        <Dimmer active={false}>
+        <Dimmer page active={this.props.showingLoading}>
           <Loader />
         </Dimmer>
         <Title />
         <GenerationFilter />
         <PokemonCardList onClick={this.onItemClick} />
-        <PokemonDetail onClose={this.closeModal} open={this.state.open} pokemon={this.pokemonSample} />
+        <PokemonDetail onClose={this.closeModal} open={this.props.showingModal} pokemon={this.props.pokemonData} />
       </div>
     );
   }
@@ -64,7 +43,7 @@ class Home extends Component {
 const mapStateToProps = (state) => ({
   showingLoading: state.pokemonDetail.showLoading,
   showingModal: state.pokemonDetail.showModal,
-  pokemonData: state.pokemonDetail.showModal
+  pokemonData: state.pokemonDetail.pokemonData
 });
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(pokemonActions, dispatch)
