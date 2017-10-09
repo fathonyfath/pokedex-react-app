@@ -61,4 +61,13 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home);
+const mapStateToProps = (state) => ({
+  showingLoading: state.pokemonDetail.showLoading,
+  showingModal: state.pokemonDetail.showModal,
+  pokemonData: state.pokemonDetail.showModal
+});
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(pokemonActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
