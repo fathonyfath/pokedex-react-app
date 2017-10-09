@@ -5,19 +5,18 @@ class PokemonCard extends Component {
   constructor(props) {
     super(props);
 
-    this.showAlert = this.showAlert.bind(this);
+    this.sendToParent = this.sendToParent.bind(this);
   }
 
 
-  showAlert(e) {
-    e.preventDefault();
-    console.log('Pokemon Id', this.props.pokemonId);
+  sendToParent(e) {
+    this.props.onClick(e, { pokemonId: this.props.pokemonId })
   }
 
   render() {
     return (
       <Grid.Column>
-        <Card onClick={this.showAlert}>
+        <Card onClick={this.sendToParent}>
           <Image centered className='pokemon-image' src={this.props.pokemonImageUrl} />
           <Card.Content>
             <Card.Header className='pokemon-name' textAlign='center'>{this.props.pokemonName}</Card.Header>

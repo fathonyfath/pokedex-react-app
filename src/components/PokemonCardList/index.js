@@ -12,6 +12,7 @@ class PokemonCardList extends Component {
     super(props);
 
     this.loadMore = this.loadMore.bind(this);
+    this.sendToParent = this.sendToParent.bind(this);
   }
 
   loadMore() {
@@ -20,6 +21,10 @@ class PokemonCardList extends Component {
     } else {
       this.props.actions.fetchPokemonGeneration(this.props.filter);
     }
+  }
+  
+  sendToParent(e, pokemonData) {
+    this.props.onClick(e, pokemonData);
   }
 
   render() {
@@ -32,7 +37,7 @@ class PokemonCardList extends Component {
         useWindow={true}>
         <Grid columns='4' container>
           {this.props.pokemonList.map((pokemon, index) =>
-            <PokemonCard key={index} pokemonId={pokemon.pokemonId} pokemonImageUrl={pokemon.pokemonImageUrl} pokemonName={pokemon.pokemonName} />
+            <PokemonCard onClick={this.sendToParent} key={index} pokemonId={pokemon.pokemonId} pokemonImageUrl={pokemon.pokemonImageUrl} pokemonName={pokemon.pokemonName} />
           )}
         </Grid>
       </InfiniteScroll>
