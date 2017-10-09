@@ -1,8 +1,18 @@
 import * as actionEnum from '../actions/actionEnums';
-import { transformPokemonData, getIdFromURI, getImageFromId } from '../utils';
+import { getImageFromId } from '../utils';
 
 const initialState = {
-  pokemonData: {},
+  pokemonData: {
+    id: '',
+    name: '',
+    imageUrl: '',
+    weight: '',
+    height: '',
+    baseExperience: '',
+    abilities: [],
+    stats: [],
+    types: []
+  },
   showModal: false,
   showLoading: false
 }
@@ -18,26 +28,68 @@ export default function pokemonDetailReducer(state = initialState, action) {
       const pokemonData = {
         id: action.payload.id,
         name: action.payload.name,
-        imageUrl: generatedImageUrl, 
-        weight: action.payload.weight, 
-        height: action.payload.height, 
-        baseExperience: action.payload.base_experience, 
-        abilities: abilities, 
-        stats: stats, 
+        imageUrl: generatedImageUrl,
+        weight: action.payload.weight,
+        height: action.payload.height,
+        baseExperience: action.payload.base_experience,
+        abilities: abilities,
+        stats: stats,
         types: types
       }
+
+      console.log(pokemonData);
 
       return { ...state, showModal: true, showLoading: false, pokemonData: pokemonData };
 
     case actionEnum.FETCH_POKEMON_DETAIL_PROGRESS:
-      return { ...state, showModal: false, showLoading: true, pokemonData: {} };
+      return {
+        ...state,
+        showModal: false,
+        showLoading: true,
+        pokemonData: {
+          id: '',
+          name: '',
+          imageUrl: '',
+          weight: '',
+          height: '',
+          baseExperience: '',
+          abilities: [],
+          stats: [],
+          types: []
+        }
+      };
 
     case actionEnum.FETCH_POKEMON_DETAIL_FAILED:
-      return { ...state, showModal: false, showLoading: false, pokemonData: {} };
+      return {
+        ...state,
+        showModal: false,
+        showLoading: false,
+        pokemonData: {
+          id: '',
+          name: '',
+          imageUrl: '',
+          weight: '',
+          height: '',
+          baseExperience: '',
+          abilities: [],
+          stats: [],
+          types: []
+        }
+      };
 
     case actionEnum.CLEAR_POKEMON_DETAIL:
       return {
-        pokemonData: {},
+        pokemonData: {
+          id: '',
+          name: '',
+          imageUrl: '',
+          weight: '',
+          height: '',
+          baseExperience: '',
+          abilities: [],
+          stats: [],
+          types: []
+        },
         showModal: false,
         showLoading: false
       };

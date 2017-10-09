@@ -68,7 +68,7 @@ export const fetchPokemonGeneration = (generation) => (dispatch) => {
 }
 
 export const fetchPokemonDetail = (pokemonId) => (dispatch) => {
-  const uri = `${rootUri}api/v2/pokemon/${pokemonId}`;
+  const uri = `${rootUri}api/v2/pokemon/${pokemonId}/`;
 
   dispatch(fetchPokemonDetailProgress());
 
