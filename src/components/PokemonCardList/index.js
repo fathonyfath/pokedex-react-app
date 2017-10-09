@@ -3,6 +3,10 @@ import { Grid, Loader } from 'semantic-ui-react';
 import PokemonCard from './PokemonCard';
 import InfiniteScroll from 'react-infinite-scroller';
 
+import { connect } from 'react-redux';
+import * as pokemonActions from '../../actions/pokemonActions';
+import { bindActionCreators } from 'redux';
+
 class PokemonCardList extends Component {
   constructor(props) {
     super(props);
@@ -11,19 +15,15 @@ class PokemonCardList extends Component {
   }
 
   loadMore() {
-    console.log("Load more method.");
+    this.props.actions.fetchPokemon();
   }
 
   render() {
-    if (!this.props.pokemonList || !this.props.pokemonList.length) {
-      return (<h1>Pokemon not found</h1>);
-    }
-
     return (
       <InfiniteScroll
         pageStart={0}
         loadMore={this.loadMore}
-        loader={<Loader active inline='centered' />}
+        loader={<Grid container><Grid.Row><Loader active inline='centered' /></Grid.Row></Grid>}
         hasMore={true}
         useWindow={true}>
         <Grid columns='4' container>
@@ -36,4 +36,12 @@ class PokemonCardList extends Component {
   }
 }
 
-export default PokemonCardList;
+const mapStateToProps = (state) => ({
+  totalSize: state.pokemonList.totalPokemonCount, 
+  pokemonList: state.pokemonList.pokemonList
+});
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(pokemonActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonCardList);
