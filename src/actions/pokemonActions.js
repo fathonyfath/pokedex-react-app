@@ -36,6 +36,10 @@ export const fetchPokemonDetailSuccess = (payload) => ({
   payload
 })
 
+export const fetchPokemonDetailProgress = () => ({
+  type: action.FETCH_POKEMON_DETAIL_PROGRESS
+})
+
 export const fetchPokemonDetailFailed = (payload) => ({
   type: action.FETCH_POKEMON_DETAIL_FAILED,
   payload
@@ -65,6 +69,8 @@ export const fetchPokemonGeneration = (generation) => (dispatch) => {
 
 export const fetchPokemonDetail = (pokemonId) => (dispatch) => {
   const uri = `${rootUri}api/v2/pokemon/${pokemonId}`;
+
+  dispatch(fetchPokemonDetailProgress());
 
   fetch(uri)
     .then(response => response.json())
