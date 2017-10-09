@@ -17,3 +17,11 @@ export const getIdFromURI = (imageUrl) => {
 export const getImageFromId = (id) => {
   return `${rootImageDir}${id}.png`;
 }
+
+export const removeDash = (name) => {
+  return name.replace(/\-/g, ' ');
+}
+
+export const capitalizeFirstLetter = (name) => {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
