@@ -12,10 +12,13 @@ class PokemonCardList extends Component {
     super(props);
 
     this.loadMore = this.loadMore.bind(this);
+
+    this.offset = 0;
   }
 
   loadMore() {
-    this.props.actions.fetchPokemon();
+    this.props.actions.fetchPokemon(this.offset);
+    this.offset += 20;
   }
 
   render() {
@@ -24,7 +27,7 @@ class PokemonCardList extends Component {
         pageStart={0}
         loadMore={this.loadMore}
         loader={<Grid container><Grid.Row><Loader active inline='centered' /></Grid.Row></Grid>}
-        hasMore={true}
+        hasMore={this.props.hasMore}
         useWindow={true}>
         <Grid columns='4' container>
           {this.props.pokemonList.map((pokemon, index) =>
@@ -37,8 +40,9 @@ class PokemonCardList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  totalSize: state.pokemonList.totalPokemonCount, 
-  pokemonList: state.pokemonList.pokemonList
+  totalSize: state.pokemonList.totalPokemonCount,
+  pokemonList: state.pokemonList.pokemonList, 
+  hasMore: state.pokemonList.hasMoreItem
 });
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(pokemonActions, dispatch)

@@ -20,9 +20,7 @@ export const fetchPokemonFailed = (payload) => ({
 })
 
 export const fetchPokemon = (offset) => (dispatch) => {
-  const firstPage = 'http://pokeapi.salestock.net/api/v2/pokemon-form/';
-  const offsetPage = `http://pokeapi.salestock.net/api/v2/pokemon-form/?offset=${offset}`;
-  const uri = (offset) ? offsetPage : firstPage;
+  const uri = `http://pokeapi.salestock.net/api/v2/pokemon/?offset=${offset}`;
 
   fetch(uri)
     .then(response => response.json())
