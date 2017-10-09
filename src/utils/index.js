@@ -2,13 +2,18 @@ const rootImageDir = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/s
 
 export const transformPokemonData = (pokemonData) => {
   const id = getIdFromURI(pokemonData.url);
+  const imageUrl = getImageFromId(id);
   return {
     pokemonId: id, 
     pokemonName: pokemonData.name, 
-    pokemonImageUrl: rootImageDir + id + '.png'
+    pokemonImageUrl: imageUrl
   }
 };
 
-const getIdFromURI = (imageUrl) => {
+export const getIdFromURI = (imageUrl) => {
   return imageUrl.match(/\/\d+\/$/g)[0].replace(/\//g, '');
+}
+
+export const getImageFromId = (id) => {
+  return `${rootImageDir}${id}.png`;
 }
