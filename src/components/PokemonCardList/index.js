@@ -12,13 +12,14 @@ class PokemonCardList extends Component {
     super(props);
 
     this.loadMore = this.loadMore.bind(this);
-
-    this.offset = 0;
   }
 
   loadMore() {
-    this.props.actions.fetchPokemon(this.offset);
-    this.offset += 20;
+    if(this.props.filter === 'all-generation') {
+      this.props.actions.fetchPokemon(this.props.offset);
+    } else {
+      this.props.actions.fetchPokemonGeneration(this.props.filter);
+    }
   }
 
   render() {
@@ -42,7 +43,9 @@ class PokemonCardList extends Component {
 const mapStateToProps = (state) => ({
   totalSize: state.pokemonList.totalPokemonCount,
   pokemonList: state.pokemonList.pokemonList, 
-  hasMore: state.pokemonList.hasMoreItem
+  hasMore: state.pokemonList.hasMoreItem, 
+  offset: state.pokemonList.offset,
+  filter: state.pokemonList.filter
 });
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(pokemonActions, dispatch)
