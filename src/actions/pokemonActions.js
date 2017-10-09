@@ -20,7 +20,7 @@ export const fetchPokemonFailed = (payload) => ({
 })
 
 export const fetchPokemon = (offset) => (dispatch) => {
-  const uri = `http://pokeapi.salestock.net/api/v2/pokemon/?offset=${offset}`;
+  const uri = `http://pokeapi.salestock.net/api/v2/pokemon-species/?offset=${offset}`;
 
   fetch(uri)
     .then(response => response.json())
