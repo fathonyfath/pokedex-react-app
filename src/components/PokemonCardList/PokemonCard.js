@@ -18,7 +18,7 @@ class PokemonCard extends Component {
     return (
       <Grid.Column>
         <Card onClick={this.showAlert}>
-          <Image className='pokemon-image' src={this.props.pokemonImageUrl} />
+          <Image centered className='pokemon-image' src={this.props.pokemonImageUrl} />
           <Card.Content>
             <Card.Header className='pokemon-name' textAlign='center'>{this.props.pokemonName}</Card.Header>
           </Card.Content>
