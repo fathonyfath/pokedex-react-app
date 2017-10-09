@@ -2,11 +2,6 @@ import * as action from './actionEnums';
 
 const rootUri = 'http://pokeapi.salestock.net/';
 
-export const addPokemonToList = (payload) => ({
-  type: action.ADD_POKEMON_TO_LIST,
-  payload
-})
-
 export const clearPokemonList = () => ({
   type: action.CLEAR_POKEMON_LIST
 })
@@ -36,6 +31,20 @@ export const setGenerationFilter = (payload) => ({
   payload
 })
 
+export const fetchPokemonDetailSuccess = (payload) => ({
+  type: action.FETCH_POKEMON_DETAIL_SUCCESS,
+  payload
+})
+
+export const fetchPokemonDetailFailed = (payload) => ({
+  type: action.FETCH_POKEMON_DETAIL_FAILED,
+  payload
+})
+
+export const clearPokemonDetail = () => ({
+  type: action.CLEAR_POKEMON_DETAIL
+})
+
 export const fetchPokemon = (offset) => (dispatch) => {
   const uri = `${rootUri}api/v2/pokemon-species/?offset=${offset}`;
 
@@ -52,4 +61,13 @@ export const fetchPokemonGeneration = (generation) => (dispatch) => {
     .then(response => response.json())
     .then(json => dispatch(fetchPokemonGenerationSuccess(json)))
     .catch(error => dispatch(fetchPokemonGenerationFailed(error)));
+}
+
+export const fetchPokemonDetail = (pokemonId) => (dispatch) => {
+  const uri = `${rootUri}api/v2/pokemon/${pokemonId}`;
+
+  fetch(uri)
+    .then(response => response.json())
+    .then(json => dispatch(fetchPokemonDetailSuccess(json)))
+    .catch(error => dispatch(fetchPokemonDetailFailed(error)));
 }
