@@ -3,9 +3,11 @@ const rootImageDir = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/s
 export const transformPokemonData = (pokemonData) => {
   const id = getIdFromURI(pokemonData.url);
   const imageUrl = getImageFromId(id);
+  const modifiedName = capitalizeFirstLetter(removeDash(pokemonData.name));
+  
   return {
     pokemonId: id, 
-    pokemonName: pokemonData.name, 
+    pokemonName: modifiedName, 
     pokemonImageUrl: imageUrl
   }
 };

@@ -1,5 +1,5 @@
 import * as actionEnum from '../actions/actionEnums';
-import { getImageFromId } from '../utils';
+import { getImageFromId, removeDash, capitalizeFirstLetter } from '../utils';
 
 const initialState = {
   pokemonData: {
@@ -21,13 +21,14 @@ export default function pokemonDetailReducer(state = initialState, action) {
   switch (action.type) {
     case actionEnum.FETCH_POKEMON_DETAIL_SUCCESS:
       const generatedImageUrl = getImageFromId(action.payload.id);
-      const abilities = action.payload.abilities.map(ability => ability.ability.name);
-      const stats = action.payload.stats.map(stat => `${stat.stat.name}: ${stat.base_stat}`);
-      const types = action.payload.types.map(type => type.type.name);
+      const abilities = action.payload.abilities.map(ability => capitalizeFirstLetter(removeDash(ability.ability.name)));
+      const stats = action.payload.stats.map(stat => `${capitalizeFirstLetter(removeDash(stat.stat.name))}: ${stat.base_stat}`);
+      const types = action.payload.types.map(type => capitalizeFirstLetter(removeDash(type.type.name)));
+      const name = capitalizeFirstLetter(removeDash(action.payload.name));
 
       const pokemonData = {
         id: action.payload.id,
-        name: action.payload.name,
+        name: name,
         imageUrl: generatedImageUrl,
         weight: action.payload.weight,
         height: action.payload.height,

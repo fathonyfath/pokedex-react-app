@@ -24,9 +24,9 @@ class DetailContent extends Component {
             </List>
             <h4>Profile</h4>
             <List className='pokemon-profile'>
-              <List.Item className='pokemon-weight'>weight: {pokemon.weight}</List.Item>
+              <List.Item className='pokemon-weight'>Weight: {pokemon.weight}</List.Item>
               <List.Item className='pokemon-height'>Height: {pokemon.height}</List.Item>
-              <List.Item className='pokemon-base-exp'>base experience: {pokemon.baseExperience}</List.Item>
+              <List.Item className='pokemon-base-exp'>Base experience: {pokemon.baseExperience}</List.Item>
             </List>
           </Grid.Column>
           <Grid.Column width={6}>

@@ -3,7 +3,7 @@ import { transformPokemonData, getIdFromURI, getImageFromId, removeDash, capital
 it('transform pokemon data correctly', () => {
   const expected = {
     pokemonId: '1',
-    pokemonName: 'bulbasaur',
+    pokemonName: 'Bulbasaur',
     pokemonImageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png'
   }
 
