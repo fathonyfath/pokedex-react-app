@@ -13,5 +13,13 @@ Type this command on your terminal:
 
 After that, you can access the website on http://localhost:3000
 
+## Available Command
+* `npm start`
+is used to start the project
+* `npm build`
+is used to build the project
+* `npm test`
+is used to run tests
+
 ## License
 MIT
